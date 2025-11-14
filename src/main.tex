@@ -1,0 +1,91 @@
+\documentclass[a4paper,french]{report}
+
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{titlesec}
+\usepackage{csquotes}
+
+% Figures
+\usepackage{graphicx}
+\graphicspath{{./img/}}
+
+\usepackage{amsmath}
+% Refs
+\usepackage[style=numeric,sorting=none,language=french]{biblatex}
+\usepackage{hyperref}
+\usepackage{cleveref}
+\usepackage{xcolor}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	urlcolor=blue,
+	citecolor=blue}
+
+% \citeref to be used instead of \cref
+% corrects a bug that happens when using babel french language and cleveref british language
+\newcommand{\citeref}[1]{%
+		\begin{otherlanguage}{british}%
+		\cref{#1}%
+		\end{otherlanguage}
+}
+\newcommand{\Citeref}[1]{%
+		\begin{otherlanguage}{british}%
+		\Cref{#1}%
+		\end{otherlanguage}
+}
+
+\crefname{table}{table}{tables}
+\Crefname{table}{Table}{Tables}
+
+
+% Extra
+\usepackage[left=3cm,right=3cm,top=2cm,bottom=2cm]{geometry}
+\usepackage{url}
+\usepackage{appendix}
+\usepackage{tablefootnote}
+\usepackage{tabularx}
+\usepackage{subcaption}
+\usepackage{booktabs}
+
+% regular chapters
+\titleformat{\chapter}[block]
+	{\Huge\bfseries\scshape} % text format
+	{} % no label
+	{0pt} % space between number and title
+	{} % title only
+\titlespacing*{\chapter}{0pt}{-20pt}{40pt} % left, above, beneath spaces
+
+% to be used only in annexes
+\newcommand{\anxchapter}[1]{%
+		\titleformat{\chapter}[block]%
+		{\normalfont\Huge\bfseries}%
+		{Annexe \Alph{chapter} : }%
+		{0pt}%
+		{}%
+		\titlespacing*{\chapter}{0pt}{-20pt}{20pt} % left, above, beneath spaces
+		\chapter{#1}%
+}
+
+
+\addbibresource{references.bib}
+
+
+% Correction of a bug between amsmath and cleveref where labels wouldn't work anymore
+\makeatletter
+\AtBeginDocument
+ {
+	 \def\ltx@label#1{\cref@label{#1}}%add braces
+	 \def\label@in@display@noarg#1{\cref@old@label@in@display{#1}}%remove braces
+	\def\label@in@mmeasure@noarg#1{%
+		\begingroup%
+			\measuring@false%
+			\cref@old@label@in@display{#1}%remove braces for multiline
+		\endgroup}%
+ } %
+\makeatother
+
+\begin{document}
+This is the end of the header and beginning of file.
+\end{document}
+
