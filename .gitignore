@@ -1,3 +1,7 @@
+Template_Latex/
+*.pdf
+
+
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
